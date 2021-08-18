@@ -159,13 +159,9 @@ void doGatherShapeN (EMParticleContainer::ParticleType const& p,
     const amrex::Real x = (p.pos(0)-xmin)*dxi;
 
     amrex::Real sx_node[depos_order + 1];
-    amrex::Real sx_cell[depos_order + 1];
-    amrex::Real sx_node_galerkin[depos_order + 1 - galerkin_interpolation] = {0._rt};
     amrex::Real sx_cell_galerkin[depos_order + 1 - galerkin_interpolation] = {0._rt};
 
     int j_node = 0;
-    int j_cell = 0;
-    int j_node_v = 0;
     int j_cell_v = 0;
     Compute_shape_factor<depos_order> const compute_shape_factor;
     Compute_shape_factor<depos_order - galerkin_interpolation> const compute_shape_factor_galerkin;
@@ -188,12 +184,8 @@ void doGatherShapeN (EMParticleContainer::ParticleType const& p,
     // y direction
     const amrex::Real y = (p.pos(1)-ymin)*dyi;
     amrex::Real sy_node[depos_order + 1];
-    amrex::Real sy_cell[depos_order + 1];
-    amrex::Real sy_node_v[depos_order + 1 - galerkin_interpolation];
     amrex::Real sy_cell_v[depos_order + 1 - galerkin_interpolation];
     int k_node = 0;
-    int k_cell = 0;
-    int k_node_v = 0;
     int k_cell_v = 0;
     k_node = compute_shape_factor(sy_node, y);
     k_cell_v = compute_shape_factor_galerkin(sy_cell_v, y - 0.5_rt);
@@ -213,12 +205,8 @@ void doGatherShapeN (EMParticleContainer::ParticleType const& p,
     // z direction
     const amrex::Real z = (p.pos(2)-zmin)*dzi;
     amrex::Real sz_node[depos_order + 1];
-    amrex::Real sz_cell[depos_order + 1];
-    amrex::Real sz_node_v[depos_order + 1 - galerkin_interpolation];
     amrex::Real sz_cell_v[depos_order + 1 - galerkin_interpolation];
     int l_node = 0;
-    int l_cell = 0;
-    int l_node_v = 0;
     int l_cell_v = 0;
     l_node = compute_shape_factor(sz_node, z);
     l_cell_v = compute_shape_factor_galerkin(sz_cell_v, z - 0.5_rt);
